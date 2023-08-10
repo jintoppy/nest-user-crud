@@ -16,10 +16,11 @@ export class UserService {
     { username: 'def', password: 'def' },
   ];
 
-  login(username: string, password: string) {
-    const user = this.users.find(
-      (u) => u.username === username && u.password === password,
-    );
+  async login(username: string, password: string) {
+    const user = await this.usersRepository.findOne({
+      where: { username, password },
+    });
+
     return user ? user : null;
   }
 
